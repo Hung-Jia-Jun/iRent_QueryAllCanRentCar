@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  main:
+    build: .
+    image: jason/accupass
+    ports:
+      - "80:8000"
