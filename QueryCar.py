@@ -64,18 +64,26 @@ class queryStationList:
 if __name__ == "__main__":
     queryStationList = queryStationList()
     
-    Starttime = "20201018140000"
-    EndTime = "20201018160000"
-    #CarType:SIENTA5人
-    CarType = "002084"
+    Starttime = "20201023200000"
+    EndTime = "20201023220000"
+    #CarType:
+    #002084:SIENTA5人
+    #002087:SIENTA7人
+    #002669:VIOS
+    #001601:YARIS
+    #yyyyyy:YARIS
+    #002659:PRIUSc
+    CarType = "002087"
     
     #將所有的租賃站ID跟名稱列出來
     stationNameLi, stationIDLi = queryStationList.searchPark(CarType)
     index = 0
     startQuery = startQuery()
+    print ("以下為有車站點：")
     for stationName in stationNameLi:
         StationName = stationName
         StationID = stationIDLi[index]
         result = startQuery.getCar(Starttime, EndTime, CarType, StationName, StationID)
-        print (result)
+        if result != None:
+            print (result)
         index += 1

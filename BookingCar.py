@@ -63,8 +63,11 @@ class startQuery:
 		if queryBookingCar["ErrorCode"] != '000000':
 			return "StationName:{0} ErrMsg:{1}".format(StationName[0:10],queryBookingCar["ErrMsg"])
 		hasCar = queryBookingCar["data"]["hasCar"]
-		return ("StationName:{0} StationID:{1} hasCar:{2}".format(StationName,StationID, hasCar))
-
+		#有車就輸出地點與車型
+		if hasCar == 1:
+			return ("StationName:{0} StationID:{1}".format(StationName,StationID))
+		else:
+			return None
 if __name__ == "__main__":
 	StationName = "iRent台北車站[西區平面停車場]"
 	Starttime = "20201021151500"
