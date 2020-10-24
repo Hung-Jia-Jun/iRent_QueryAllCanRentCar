@@ -26,6 +26,7 @@ class queryStationList:
 		#租賃站ID
 		stationIDLi = []
 
+		#station
 		#
 		# 將資料加入 POST 請求中
 		r = requests.post(
@@ -45,7 +46,7 @@ class queryStationList:
 
 				#租賃站點的中文名稱
 				SiteName = station["SiteName"]
-
+				lat, lng = station["Lat"], station["Lng"]
 				#可以輸出站點資訊
 				# print("SiteName:{0} Addr:{1} siteID:{2}".format(SiteName , addr, siteID))
 				
@@ -73,6 +74,8 @@ class queryStationList:
 			StationID = stationIDLi[index]
 			result = startQuery.getCar(Starttime, EndTime, CarType, StationName, StationID)
 			if result != None:
+				if len(hasCarStation)>0:
+					return hasCarStation
 				hasCarStation.append(result)
 			index += 1
 		#回傳有車的站點

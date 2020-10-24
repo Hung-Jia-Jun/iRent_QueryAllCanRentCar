@@ -39,7 +39,7 @@ startQuery = startQuery()
 @app.route("/")
 def index():
 	
-	return render_template('map.html', stations=hasCarStation)
+	return render_template('map.html')
 
 #取得用戶輸入的網址
 @app.route("/getHasCarStation")
@@ -54,7 +54,7 @@ def getHasCarStation():
 	#001601:YARIS
 	#yyyyyy:YARIS
 	#002659:PRIUSc
-	CarType = "002087"
+	CarType = "001601"
 	#取得我寫在code裡面的車輛ID等資料，並去做查詢
 	hasCarStation = queryStationList.start(
 					startQuery, Starttime, EndTime, CarType)

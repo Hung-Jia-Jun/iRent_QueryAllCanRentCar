@@ -74,8 +74,8 @@ class startQuery:
 			return None
 if __name__ == "__main__":
 	StationName = "iRent台北車站[西區平面停車場]"
-	Starttime = "20201021151500"
-	EndTime = "20201021171500"
+	Starttime = "20201028151500"
+	EndTime = "20201028171500"
 	CarType = "001601"
 	StationID = "X0KV"
 	startQuery = startQuery()
