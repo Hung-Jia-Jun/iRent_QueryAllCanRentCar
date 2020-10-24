@@ -258,4 +258,5 @@ function googleMapShow(stations)
 	});
 }
 $(document).ready(function(){
+	googleMapShow(stations);
 });

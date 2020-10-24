@@ -62,30 +62,21 @@ class queryStationList:
 						# print("CarID:{0} TypeName:{1}".format(carID,typeName))
 		return stationNameLi, stationIDLi
 
-	def start(self,startQuery):
-	
-		Starttime = "20201023200000"
-		EndTime = "20201023220000"
-		#CarType:
-		#002084:SIENTA5人
-		#002087:SIENTA7人
-		#002669:VIOS
-		#001601:YARIS
-		#yyyyyy:YARIS
-		#002659:PRIUSc
-		CarType = "002087"
-		
+	def start(self,startQuery,Starttime,EndTime,CarType):
 		#將所有的租賃站ID跟名稱列出來
 		stationNameLi, stationIDLi = self.searchPark(CarType)
 		index = 0
+		hasCarStation = []
 		print ("以下為有車站點：")
 		for stationName in stationNameLi:
 			StationName = stationName
 			StationID = stationIDLi[index]
 			result = startQuery.getCar(Starttime, EndTime, CarType, StationName, StationID)
 			if result != None:
-				print (result)
+				hasCarStation.append(result)
 			index += 1
+		#回傳有車的站點
+		return hasCarStation
 if __name__ == "__main__":
 	queryStationList = queryStationList()
 	startQuery = startQuery()

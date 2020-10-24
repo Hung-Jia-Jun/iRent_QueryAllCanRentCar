@@ -38,16 +38,29 @@ queryStationList = queryStationList()
 startQuery = startQuery()
 @app.route("/")
 def index():
-	#取得我寫在code裡面的車輛ID等資料，並去做查詢
-	queryStationList.start(startQuery)
-	return render_template('map.html',stations = stations)
+	
+	return render_template('map.html', stations=hasCarStation)
 
 #取得用戶輸入的網址
 @app.route("/getHasCarStation")
 def getHasCarStation():
 	# _url = request.args.get('url')
-	
-	res_json = json.dumps(res, ensure_ascii=False)
+	Starttime = "20201028200000"
+	EndTime = "20201028220000"
+	#CarType:
+	#002084:SIENTA5人
+	#002087:SIENTA7人
+	#002669:VIOS
+	#001601:YARIS
+	#yyyyyy:YARIS
+	#002659:PRIUSc
+	CarType = "002087"
+	#取得我寫在code裡面的車輛ID等資料，並去做查詢
+	hasCarStation = queryStationList.start(
+					startQuery, Starttime, EndTime, CarType)
+	stationJson = {}
+	stationJson["hasCar"] = hasCarStation
+	res_json = json.dumps(stationJson, ensure_ascii=False)
 	return Response(response=res_json,
 			status=200,
 			mimetype="application/json")
