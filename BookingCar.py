@@ -5,8 +5,8 @@ import os
 class startQuery:
 	def __init__(self):
 		if 'isHeroku' in os.environ:
-			IDNumber = os.environ["DeviceID"]
-			DeviceID = os.environ["IDNO"]
+			IDNumber = os.environ["IDNO"]
+			DeviceID = os.environ["DeviceID"]
 		else:
 			config = configparser.ConfigParser()
 			config.read('Config.ini')
