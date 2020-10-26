@@ -6,3 +6,6 @@
 * 租用車型 SIENTA5人
 * CarType = "002084"
 ![](https://i.imgur.com/otDiNx3.jpg)
+
+## 更新網頁查詢功能
+![](https://i.imgur.com/630vAjI.png)
