@@ -43,7 +43,7 @@ class startQuery:
                     }
                 }
 
-	def getCar(self, Starttime, EndTime, CarType, StationName, StationID, stationGIS):
+	def getCar(self, Starttime, EndTime, CarType, StationName, StationID, stationGIS,stationAddr):
 		self.query_data['para']["SD"] = Starttime
 		self.query_data['para']["ED"] = EndTime
 		self.query_data['para']["CarType"] = CarType
@@ -70,6 +70,7 @@ class startQuery:
 			stationInfo["StationName"] = StationName
 			stationInfo["StationID"] = StationID
 			stationInfo["stationGIS"] = stationGIS
+			stationInfo["stationAddr"] = stationAddr
 			return stationInfo
 		else:
 			return None

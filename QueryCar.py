@@ -29,6 +29,8 @@ class queryStationList:
 
 		#station
 		stationGISLi = []
+
+		stationAddr = []
 		# 將資料加入 POST 請求中
 		r = requests.post(
 			'https://irent.irentcar.com.tw/iMotoAPI/api/Preferential', json=self.my_data)
@@ -48,6 +50,7 @@ class queryStationList:
 				#租賃站點的中文名稱
 				SiteName = station["SiteName"]
 				lat, lng = station["Lat"], station["Lng"]
+				ADDR = station["ADDR"]
 				#可以輸出站點資訊
 				# print("SiteName:{0} Addr:{1} siteID:{2}".format(SiteName , addr, siteID))
 				
@@ -60,13 +63,14 @@ class queryStationList:
 						stationNameLi.append(SiteName)
 						stationIDLi.append(siteID)
 						stationGISLi.append([lat, lng])
+						stationAddr.append(ADDR)
 						#依照各車型輸出詳情
 						# print("CarID:{0} TypeName:{1}".format(carID,typeName))
-		return stationNameLi, stationIDLi, stationGISLi
+		return stationNameLi, stationIDLi, stationGISLi,stationAddr
 
 	def start(self,startQuery,Starttime,EndTime,CarType):
 		#將所有的租賃站ID跟名稱列出來
-		stationNameLi, stationIDLi, stationGISLi = self.searchPark(CarType)
+		stationNameLi, stationIDLi, stationGISLi,stationAddr = self.searchPark(CarType)
 		index = 0
 		hasCarStation = []
 		for stationName in tqdm(stationNameLi):
@@ -74,8 +78,10 @@ class queryStationList:
 			StationID = stationIDLi[index]
 			#座標位置
 			stationGIS = stationGISLi[index]
+
+			Addr = stationAddr[index]
 			result = startQuery.getCar(
-				Starttime, EndTime, CarType, StationName, StationID, stationGIS)
+				Starttime, EndTime, CarType, StationName, StationID, stationGIS,Addr)
 			if result != None:
 				#開發期間先測試只要抓到一個站點有車就回傳
 				#不然所有車站都爬完很耗時間

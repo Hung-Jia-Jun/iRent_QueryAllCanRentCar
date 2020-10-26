@@ -44,8 +44,13 @@ def index():
 #取得用戶輸入的網址
 @app.route("/getHasCarStation")
 def getHasCarStation():
-	startTime = request.args.get('startTime')
-	endTime = request.args.get('endTime')
+	startDate = request.args.get('startDate').replace("-","")
+	startTime = request.args.get('startTime').replace(":","")+"00"
+	endDate = request.args.get('endDate').replace("-","")
+	endTime = request.args.get('endTime').replace(":","")+"00"
+	
+	startTime = startDate + startTime
+	endTime = endDate + endTime
 	carType = request.args.get('carType')
 	# startTime = "20201028200000"
 	# endTime = "20201028220000"

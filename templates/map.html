@@ -24,12 +24,89 @@
 
     <link rel="shortcut icon" href="https://letswritetw.github.io/letswritetw/dist/img/logo_512.png"/>
     <script>
-       
+        var map;
+      var marker;
+      var markers = [];
+      var taiwan = {lat: 23.5, lng: 121};
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: taiwan
+        });
+        
+        map.addListener('click', function(event){
+          addMarker(event.latLng);
+        });
+        addMarker(taiwan);
+        marker.addListener('click', toggleBounce);
+        
+      }
+
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+
+      function addMarker(location) {
+        marker = new google.maps.Marker({
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: location,
+        map: map
+        });
+        markers.push(marker);
+      }
+
+      function setMapOnAll(map){
+        for (var i = 0; i< markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+      function clearMarkers(){
+        setMapOnAll(null);
+      }
+
+      function showMarkers(){
+        setMapOnAll(map);
+      }
+
+      function deleteMarkers() {
+        setMapOnAll();
+        markers = [];
+      }
+
     </script>
+
   </head>
   <body>
 
+    <form action="/getHasCarStation">
+      <label>取車時間:</label>
+      <input type="date" id="startDate" name="startDate">
+      <input type="time" id="startTime" name="startTime">
+      <br></br>
+      <label>還車時間:</label>
+      <input type="date" id="endDate" name="endDate">
+      <input type="time" id="endTime" name="endTime">
+      <br></br>
+      <select id="carType" name="carType">
+        　<option value="002084">SIENTA5人</option>
+        　<option value="002087">SIENTA7人</option>
+        　<option value="002669">VIOS</option>
+        　<option value="001601">YARIS</option>
+          <option value="yyyyyy">YARIS(舊款)</option>
+        　<option value="002659">PRIUSc</option>
+      </select>
 
+
+    </form>
+
+    <button id="queryCar">Go</button>
+    
     <div id="app" class="container">
 
       <div class="row">
@@ -41,11 +118,13 @@
       
     
     </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE2-xgIpJ3rSSLDd1O8GOgNNviTA9P1q4" async defer></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE2-xgIpJ3rSSLDd1O8GOgNNviTA9P1q4&callback=initMap">
+    </script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE2-xgIpJ3rSSLDd1O8GOgNNviTA9P1q4" async defer></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
     <script src="/static/main.js"></script>
-    <button id="queryCar">Go</button>
+
 
   </body>
 </html>
