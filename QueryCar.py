@@ -46,6 +46,7 @@ class queryStationList:
 		r = requests.post(
 			'https://irent.irentcar.com.tw/iMotoAPI/api/Preferential', json=self.my_data)
 		stations = json.loads(r.text)
+		print (self.my_data)
 		print (stations)
 		#要查詢租車一定要專案ID
 		projID = stations["data"][1]["ProjID"]
