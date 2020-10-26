@@ -1,4 +1,4 @@
-Flask==1.1.2
+gunicornFlask==1.1.2
 Flask-Cors==3.0.8
 Flask-Migrate==2.5.3
 Flask-Script==2.0.6
@@ -8,6 +8,7 @@ Jinja2==2.11.2
 alembic==1.4.2
 altgraph==0.17
 appdirs==1.4.3
+gunicorn
 APScheduler==3.6.1
 asn1crypto==1.0.1
 attrs==19.2.0
