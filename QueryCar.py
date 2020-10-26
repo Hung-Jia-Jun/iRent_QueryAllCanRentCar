@@ -2,6 +2,7 @@ import requests
 import json
 from BookingCar import startQuery
 import configparser
+import os
 from tqdm import tqdm
 class queryStationList:
 	def __init__(self):

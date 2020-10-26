@@ -1,7 +1,7 @@
 import requests
 import json
 import configparser
-
+import os
 class startQuery:
 	def __init__(self):
 		if 'isHeroku' in os.environ:
