@@ -44,20 +44,22 @@ def index():
 #取得用戶輸入的網址
 @app.route("/getHasCarStation")
 def getHasCarStation():
-	# _url = request.args.get('url')
-	Starttime = "20201028200000"
-	EndTime = "20201028220000"
-	#CarType:
+	startTime = request.args.get('startTime')
+	endTime = request.args.get('endTime')
+	carType = request.args.get('carType')
+	# startTime = "20201028200000"
+	# endTime = "20201028220000"
+	#carType:
 	#002084:SIENTA5人
 	#002087:SIENTA7人
 	#002669:VIOS
 	#001601:YARIS
 	#yyyyyy:YARIS
 	#002659:PRIUSc
-	CarType = "001601"
+	# carType = "001601"
 	#取得我寫在code裡面的車輛ID等資料，並去做查詢
 	hasCarStation = queryStationList.start(
-					startQuery, Starttime, EndTime, CarType)
+					startQuery, startTime, endTime, carType)
 	stationJson = {}
 	stationJson["hasCar"] = hasCarStation
 	res_json = json.dumps(stationJson, ensure_ascii=False)

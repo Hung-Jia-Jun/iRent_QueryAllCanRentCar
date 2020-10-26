@@ -1,6 +1,65 @@
-function googleMapShow(stations)
+function queryCar()
 {
+	$.get(
+		"getHasCarStation",
+		{ 
+			startTime: "20201028200000",
+			endTime: "20201028220000",
+			carType: "001601"
+		},
+		function (data) {
+			setMarkers(data);
+		}
+	);
+}
 
+var markers = []; 
+function setMarkers(stations) {
+	// Loop through markers and set map to null for each
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+
+	// Reset the markers array
+	markers = [];
+
+	var map = new google.maps.Map(document.getElementById("map"));
+
+	
+
+	_stations = stations["hasCar"]
+	// _station.StationName
+			  	// _stations.forEach(function (_station) {
+				// 	pos = _station.stationGIS;
+				// 	console.log(_station);
+				// });
+	_stations.forEach(function (_station) {
+		var myLatLng = new google.maps.LatLng(_station.stationGIS[0], _station.stationGIS[1]);
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			animation: google.maps.Animation.DROP,
+			title: _station.StationName,
+		});
+		marker.addListener('click', function () {
+			var infowindow = new google.maps.InfoWindow({
+				position: point,
+				content: _station.StationName,
+			});
+			infowindow.open(map, marker);
+		});
+		// To add the marker to the map, call setMap();
+		marker.setMap(map);
+
+		// Push marker to markers array
+		markers.push(marker);
+	});
+
+}
+
+
+function googleMapShow()
+{
 	const googleMap = new Vue({
 	  el: '#app',
 	  data: {
@@ -227,27 +286,8 @@ function googleMapShow(stations)
 						]
 					  }
 					]
-		  });
-		
-		  console.log(stations);
-		  let point= {
-			  lat: 25.041670890743074, // 經度
-			  lng: 121.53732776641846 // 緯度
-			  };
-		  // 放置marker
-		  let marker = new google.maps.Marker({
-		  position: point,
-		  data: "台北車站",
-		  map: this.map
-		  });
-
-		  marker.addListener('click', function() {  
-			  var infowindow = new google.maps.InfoWindow({
-				  position: point,
-				  content: "台北車站",
 			  });
-			  infowindow.open(map, marker);  
-		  });
+			  	
 		}
 	  },
 	  created() {
@@ -257,6 +297,8 @@ function googleMapShow(stations)
 	  }
 	});
 }
+
 $(document).ready(function(){
-	googleMapShow(stations);
+	document.getElementById("queryCar").addEventListener("click", queryCar);
+	googleMapShow();
 });
