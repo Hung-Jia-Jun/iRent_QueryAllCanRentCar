@@ -6,7 +6,7 @@ import os
 from tqdm import tqdm
 class queryStationList:
 	def __init__(self):
-		if os.environ["isHeroku"] == "True":
+		if "isHeroku" in os.environ:
 			IDNumber = os.environ["DeviceID"]
 			DeviceID = os.environ["IDNO"]
 			print (IDNumber)
@@ -46,7 +46,7 @@ class queryStationList:
 		r = requests.post(
 			'https://irent.irentcar.com.tw/iMotoAPI/api/Preferential', json=self.my_data)
 		stations = json.loads(r.text)
-
+		print (stations)
 		#要查詢租車一定要專案ID
 		projID = stations["data"][1]["ProjID"]
 		#選擇台北市同站租還專案
@@ -97,8 +97,8 @@ class queryStationList:
 				#開發期間先測試只要抓到一個站點有車就回傳
 				#不然所有車站都爬完很耗時間
 				#上線後要刪掉這段
-				if len(hasCarStation)>0:
-					return hasCarStation
+				# if len(hasCarStation)>0:
+				# 	return hasCarStation
 				hasCarStation.append(result)
 			index += 1
 		#回傳有車的站點
