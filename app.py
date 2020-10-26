@@ -73,4 +73,8 @@ def getHasCarStation():
 			mimetype="application/json")
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0',port=80)
+	#為何使用8000 port呢?
+	#因為小於1024的port需要sudo 才能運行
+	#heroku沒有sudo 的執行權限
+	#https://stackoverflow.com/questions/45385384/how-can-i-run-as-root-on-heroku
+	app.run(host='0.0.0.0',port=8000)
