@@ -8,7 +8,6 @@ Jinja2==2.11.2
 alembic==1.4.2
 altgraph==0.17
 appdirs==1.4.3
-gunicorn
 APScheduler==3.6.1
 asn1crypto==1.0.1
 attrs==19.2.0
