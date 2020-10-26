@@ -6,9 +6,11 @@ import os
 from tqdm import tqdm
 class queryStationList:
 	def __init__(self):
-		if 'isHeroku' in os.environ:
+		if os.environ["isHeroku"] == "True":
 			IDNumber = os.environ["DeviceID"]
 			DeviceID = os.environ["IDNO"]
+			print (IDNumber)
+			print (DeviceID)
 		else:
 			config = configparser.ConfigParser()
 			config.read('Config.ini')
