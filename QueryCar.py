@@ -7,8 +7,8 @@ from tqdm import tqdm
 class queryStationList:
 	def __init__(self):
 		if "isHeroku" in os.environ:
-			IDNumber = os.environ["DeviceID"]
-			DeviceID = os.environ["IDNO"]
+			IDNumber = os.environ["IDNO"]
+			DeviceID = os.environ["DeviceID"]
 			print (IDNumber)
 			print (DeviceID)
 		else:
