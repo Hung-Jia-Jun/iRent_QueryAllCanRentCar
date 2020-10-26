@@ -20,19 +20,6 @@ from bs4 import BeautifulSoup
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-
-class shortURL(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	URL = db.Column(db.String(255))
-	MappingURL = db.Column(db.String(255))
-  
-	def __init__(self,URL,MappingURL):
-		self.URL = URL
-		self.MappingURL = MappingURL
-
 
 queryStationList = queryStationList()
 startQuery = startQuery()
