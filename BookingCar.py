@@ -4,16 +4,19 @@ import configparser
 
 class startQuery:
 	def __init__(self):
-		config = configparser.ConfigParser()
-		config.read('Config.ini')
+		if 'isHeroku' in os.environ:
+			IDNumber = os.environ["DeviceID"]
+			DeviceID = os.environ["IDNO"]
+		else:
+			config = configparser.ConfigParser()
+			config.read('Config.ini')
 
-		#讀取身分證字號
-		IDNumber = str(config.get(
-			'identifyInformation', 'IDNO'))
-
-		#讀取手機ID
-		DeviceID = str(config.get(
-			'identifyInformation', 'DeviceID'))
+			#讀取身分證字號
+			IDNumber = str(config.get(
+				'identifyInformation', 'IDNO'))
+			#讀取手機ID
+			DeviceID = str(config.get(
+				'identifyInformation', 'DeviceID'))
 		self.query_data = {
                     "para": {
                         "app": "1",
