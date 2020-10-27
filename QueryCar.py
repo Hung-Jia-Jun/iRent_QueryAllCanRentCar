@@ -95,11 +95,10 @@ class queryStationList:
 			result = startQuery.getCar(
 				Starttime, EndTime, CarType, StationName, StationID, stationGIS,Addr)
 			if result != None:
-				#開發期間先測試只要抓到一個站點有車就回傳
-				#不然所有車站都爬完很耗時間
-				#上線後要刪掉這段
-				# if len(hasCarStation)>0:
-				# 	return hasCarStation
+				# 不要一次查太多
+				# 所有車站都爬完很耗時間
+				if len(hasCarStation)>10:
+					return hasCarStation
 				hasCarStation.append(result)
 			index += 1
 		#回傳有車的站點
