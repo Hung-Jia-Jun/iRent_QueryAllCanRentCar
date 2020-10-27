@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 queryStationList = queryStationList()
 startQuery = startQuery()
 @app.route("/")
@@ -61,11 +61,11 @@ def getHasCarStation():
 			mimetype="application/json")
 
 
-@socketio.on('event')
-@cross_origin()
-def event(msg):
-	if msg["data"] == "connected!":
-		socketio.emit('server_response', {'data': "Check"})
+# @socketio.on('event')
+# @cross_origin()
+# def event(msg):
+# 	if msg["data"] == "connected!":
+# 		socketio.emit('server_response', {'data': "Check"})
 	
 if __name__ == "__main__":
 	#為何使用8000 port呢?
@@ -73,4 +73,4 @@ if __name__ == "__main__":
 	#heroku沒有sudo 的執行權限
 	#https://stackoverflow.com/questions/45385384/how-can-i-run-as-root-on-heroku
 	app.run(host='0.0.0.0',port=8000)
-	socketio.run(app)
+	# socketio.run(app)
