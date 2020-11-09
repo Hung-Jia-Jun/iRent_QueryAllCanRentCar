@@ -16,10 +16,10 @@ class queryStationList:
 			config.read('Config.ini')
 
 			#讀取身分證字號
-			IDNumber = str(config.get(
+			IDNumber =str(config.get(
 				'identifyInformation', 'IDNO'))
 			#讀取手機ID
-			DeviceID = str(config.get(
+			DeviceID =str(config.get(
 				'identifyInformation', 'DeviceID'))
 				
 		self.my_data = {

@@ -11,7 +11,8 @@ function queryCar()
 			startTime : document.getElementById("startTime").value,
 			endDate : document.getElementById("endDate").value,
 			endTime : document.getElementById("endTime").value,
-			carType : document.getElementById("carType").value
+			carType : document.getElementById("carType").value,
+			cityName: document.getElementById("cityName").value
 		},
 		function (data) {
 			document.getElementById("queryCar").disabled = false
