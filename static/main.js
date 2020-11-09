@@ -516,6 +516,7 @@ function googleMapShow()
 
 }
 $(document).ready(function(){
+	document.getElementById("loading").style.display = 'none';
 	document.getElementById("queryCar").addEventListener("click", queryCar);
 	googleMapShow();
 
