@@ -32,7 +32,7 @@ class queryStationList:
 			}
 		}
 
-	def searchPark(self, CarType):
+	def searchPark(self, CarType,CityName):
 		#租賃站的名稱
 		stationNameLi = []
 		#租賃站ID
@@ -48,10 +48,9 @@ class queryStationList:
 		stations = json.loads(r.text)
 		#要查詢租車一定要專案ID
 		projID = stations["data"][1]["ProjID"]
-		#選擇台北市同站租還專案
+		#選擇不同縣市的同站租還專案
 		for station in stations["data"][1]["Station"]:
-			#因為總共有一千多個站點，那就先以台北市為主
-			if station["Area"] == "台北市":
+			if station["Area"] == CityName:
 				#租車站地址
 				addr = station["ADDR"]
 				#租車站ID
@@ -78,9 +77,10 @@ class queryStationList:
 						# print("CarID:{0} TypeName:{1}".format(carID,typeName))
 		return stationNameLi, stationIDLi, stationGISLi,stationAddr
 
-	def start(self,startQuery,Starttime,EndTime,CarType):
+	def start(self,startQuery,Starttime,EndTime,CarType,CityName):
 		#將所有的租賃站ID跟名稱列出來
-		stationNameLi, stationIDLi, stationGISLi,stationAddr = self.searchPark(CarType)
+		stationNameLi, stationIDLi, stationGISLi, stationAddr = self.searchPark(
+			CarType, CityName)
 		index = 0
 		hasCarStation = []
 		for stationName in tqdm(stationNameLi):

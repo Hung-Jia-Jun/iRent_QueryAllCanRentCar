@@ -1,5 +1,9 @@
 function queryCar()
 {
+	//關閉 Go按鈕，防止用戶多次按下
+	document.getElementById("queryCar").disabled = true
+	//顯示"載入中..."的文字
+	document.getElementById("loading").style.display = 'block';
 	$.get(
 		"getHasCarStation",
 		{ 
@@ -10,6 +14,10 @@ function queryCar()
 			carType : document.getElementById("carType").value
 		},
 		function (data) {
+			document.getElementById("queryCar").disabled = false
+			//關閉"載入中..."的文字
+			document.getElementById("loading").style.display = 'none';
+
 			setMarkers(data);
 		}
 	);

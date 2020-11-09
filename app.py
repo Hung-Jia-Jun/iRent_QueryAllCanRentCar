@@ -40,6 +40,7 @@ def getHasCarStation():
 	startTime = startDate + startTime
 	endTime = endDate + endTime
 	carType = request.args.get('carType')
+	cityName = request.args.get('cityName')
 	# startTime = "20201028200000"
 	# endTime = "20201028220000"
 	#carType:
@@ -52,7 +53,7 @@ def getHasCarStation():
 	# carType = "001601"
 	#取得我寫在code裡面的車輛ID等資料，並去做查詢
 	hasCarStation = queryStationList.start(
-					startQuery, startTime, endTime, carType)
+            startQuery, startTime, endTime, carType, cityName)
 	stationJson = {}
 	stationJson["hasCar"] = hasCarStation
 	res_json = json.dumps(stationJson, ensure_ascii=False)

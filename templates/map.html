@@ -93,6 +93,7 @@
       <input type="date" id="endDate" name="endDate">
       <input type="time" id="endTime" name="endTime">
       <br></br>
+      <label>車型:</label>
       <select id="carType" name="carType">
         　<option value="002084">SIENTA5人</option>
         　<option value="002087">SIENTA7人</option>
@@ -101,14 +102,37 @@
           <option value="yyyyyy">YARIS(舊款)</option>
         　<option value="002659">PRIUSc</option>
       </select>
-
+      <br></br>
+      <label>地區:</label>
+      <select id="cityName" name="cityName">
+          <option value="台北市">台北市</option>
+          <option value="新北市">新北市</option>
+          <option value="桃園市">桃園市</option>
+          <option value="基隆市">基隆市</option>
+          <option value="宜蘭縣">宜蘭縣</option>
+          <option value="新竹市">新竹市</option>
+          <option value="新竹縣">新竹縣</option>
+          <option value="苗栗縣">苗栗縣</option>
+          <option value="雲林縣">雲林縣</option>
+          <option value="嘉義市">嘉義市</option>
+          <option value="嘉義縣">嘉義縣</option>
+          <option value="台南市">台南市</option>
+          <option value="台中市">台中市</option>
+          <option value="彰化縣">彰化縣</option>
+          <option value="南投縣">南投縣</option>
+          <option value="高雄市">高雄市</option>
+          <option value="花蓮縣">花蓮縣</option>
+          <option value="台東縣">台東縣</option>
+          <option value="屏東縣">屏東縣</option>
+        　<option value="澎湖縣">澎湖縣</option>
+      </select>
 
     </form>
 
     <button id="queryCar">Go</button>
-    
-    <div id="app" class="container">
+    <label id="loading">載入中...</label>
 
+    <div id="app" class="container">
       <div class="row">
         <div class="col">
           <div id="map" class="embed-responsive embed-responsive-16by9"></div>
