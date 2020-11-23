@@ -46,6 +46,8 @@ class queryStationList:
 		r = requests.post(
 			'https://irent.irentcar.com.tw/iMotoAPI/api/Preferential', json=self.my_data)
 		stations = json.loads(r.text)
+		if "ErrorCode" in stations:
+			return stations["ErrMsg"]
 		#要查詢租車一定要專案ID
 		projID = stations["data"][1]["ProjID"]
 		#選擇不同縣市的同站租還專案
@@ -78,9 +80,13 @@ class queryStationList:
 		return stationNameLi, stationIDLi, stationGISLi,stationAddr
 
 	def start(self,startQuery,Starttime,EndTime,CarType,CityName):
-		#將所有的租賃站ID跟名稱列出來
-		stationNameLi, stationIDLi, stationGISLi, stationAddr = self.searchPark(
-			CarType, CityName)
+		try:
+			#將所有的租賃站ID跟名稱列出來
+			stationNameLi, stationIDLi, stationGISLi, stationAddr = self.searchPark(
+				CarType, CityName)
+		except ValueError:
+			#返回錯誤，可能是請先登入等驗證問題
+			return self.searchPark(CarType, CityName)
 		index = 0
 		hasCarStation = []
 		for stationName in tqdm(stationNameLi):

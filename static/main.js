@@ -18,7 +18,6 @@ function queryCar()
 			document.getElementById("queryCar").disabled = false
 			//關閉"載入中..."的文字
 			document.getElementById("loading").style.display = 'none';
-
 			setMarkers(data);
 		}
 	);
@@ -36,29 +35,39 @@ function setMarkers(stations) {
 	markers = [];
 	_stations = stations["hasCar"]
 	i=0;
-	_stations.forEach(function (_station) {
-		point = {lat: _station.stationGIS[0] , lng: _station.stationGIS[1] };
-		var marker = new google.maps.Marker({
-			position:point,
-		  });
+	try {
+		_stations.forEach(function (_station) {
+			point = { lat: _station.stationGIS[0], lng: _station.stationGIS[1] };
+			var marker = new google.maps.Marker({
+				position: point,
+			});
 
-		var infoWindow = new google.maps.InfoWindow({
-			position:{lat:_stations[i].stationGIS[0],lng:_stations[i].stationGIS[1]},
-			content: _stations[i].StationName + "\n" + _stations[i].stationAddr
+			var infoWindow = new google.maps.InfoWindow({
+				position: { lat: _stations[i].stationGIS[0], lng: _stations[i].stationGIS[1] },
+				content: _stations[i].StationName + "\n" + _stations[i].stationAddr
+			});
+
+			marker.addListener('click', function () {
+				if (prev_infoWindow) {
+					prev_infoWindow.close();
+				}
+
+				prev_infoWindow = infoWindow;
+				infoWindow.open(map, marker);
+			});
+			markers.push(marker);
+			i += 1;
 		});
+	} catch{
+		if (stations["hasCar"] == "請先登入。"){
+			alert("這個系統開發者目前提供的irent帳號被鎖了\n有問題的話可以聯絡：\nyf9000555@gmail.com");
+		}
+		else{
+			alert(stations["hasCar"]);
+		}
+		return;
+	}
 	
-		marker.addListener('click', function () {
-			if( prev_infoWindow ) {
-				prev_infoWindow.close();
-			}
-	 
-			prev_infoWindow = infoWindow;
-			infoWindow.open(map, marker);
-		});
-		markers.push(marker);
-		i+=1;
-	});
-
 
 	var mapOptions = {
 		zoom: 13,
