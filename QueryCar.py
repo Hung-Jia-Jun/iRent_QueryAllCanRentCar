@@ -47,7 +47,8 @@ class queryStationList:
 			'https://irent.irentcar.com.tw/iMotoAPI/api/Preferential', json=self.my_data)
 		stations = json.loads(r.text)
 		if "ErrorCode" in stations:
-			return stations["ErrMsg"]
+			if stations["ErrorCode"] != "000000":
+				return stations["ErrMsg"]
 		#要查詢租車一定要專案ID
 		projID = stations["data"][1]["ProjID"]
 		#選擇不同縣市的同站租還專案
