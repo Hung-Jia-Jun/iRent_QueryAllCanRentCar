@@ -1,0 +1,25 @@
+{
+  "name": "iRent_QueryAllCanRentCar",
+  "version": "1.0.0",
+  "description": "* 預約租車起始時間 =  2020/10/18/14:00:00 * 預約租車結束時間 = 2020/10/18/16:00:00 * 租用車型 SIENTA5人 * CarType = \"002084\" ## 網頁查詢功能 ![](https://i.imgur.com/tgKyWml.png)",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hung-Jia-Jun/iRent_QueryAllCanRentCar.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hung-Jia-Jun/iRent_QueryAllCanRentCar/issues"
+  },
+  "homepage": "https://github.com/Hung-Jia-Jun/iRent_QueryAllCanRentCar#readme"
+}

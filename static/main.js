@@ -530,16 +530,4 @@ $(document).ready(function(){
 	document.getElementById("queryCar").addEventListener("click", queryCar);
 	googleMapShow();
 
-	// //socket io
-	// socket = io.connect("/", { path: '/socket.io' });
-	// socket.on('server_response', function (msg) {
-	// 	if (msg["data"].match('TakePic :') != null) {
-	// 	}
-	// });
-	// socket.on('ImageStream', function (msg) {
-	// });
-	// socket.on('connect', function () {
-	// 	socket.emit('event', { data: 'connected!' });
-	// });
-
 });
