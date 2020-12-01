@@ -80,7 +80,7 @@ if __name__ == "__main__":
 	#為何使用8000 port呢?
 	#因為小於1024的port需要sudo 才能運行
 	#heroku沒有sudo 的執行權限
-	port=int(os.environ["PORT"]) 
+	port=int(os.environ["SOCKET_PORT"]) 
 	#https://stackoverflow.com/questions/45385384/how-can-i-run-as-root-on-heroku
 	socketio.run(app, host="0.0.0.0", port=port, use_reloader=False)
 	app.run(host='0.0.0.0',port=8000)
