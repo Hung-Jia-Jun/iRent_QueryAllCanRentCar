@@ -100,14 +100,13 @@ class queryStationList:
 			result = startQuery.getCar(
 				Starttime, EndTime, CarType, StationName, StationID, stationGIS,Addr)
 			if result != None:
-				# 不要一次查太多
-				# 所有車站都爬完很耗時間
-				if len(hasCarStation)>10:
-					return hasCarStation
+				if "ErrMsg" in result:
+					return result["ErrMsg"]
 				hasCarStation.append(result)
 			index += 1
+			yield len(stationNameLi),hasCarStation
 		#回傳有車的站點
-		return hasCarStation
+		yield len(stationNameLi),hasCarStation
 if __name__ == "__main__":
 	queryStationList = queryStationList()
 	startQuery = startQuery()

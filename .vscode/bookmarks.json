@@ -1,10 +1,15 @@
 [
 	{
-		"path": "$ROOTPATH$/QueryCar.py",
+		"path": "$ROOTPATH$/static/main.js",
 		"bookmarks": [
 			{
-				"line": 75,
-				"column": 32,
+				"line": 6,
+				"column": 1,
+				"label": ""
+			},
+			{
+				"line": 570,
+				"column": 2,
 				"label": ""
 			}
 		]

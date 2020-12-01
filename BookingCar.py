@@ -61,10 +61,12 @@ class startQuery:
 			'https://irent.irentcar.com.tw/iMotoAPI/api/CheckBookingStatus', json=self.query_data)
 		
 		queryBookingCar = json.loads(r.text)
-		# "ErrorCode": "ERR263"
-		#      此車型，不在所選擇的據點或優惠專案內
+
+		#發生錯誤了
 		if queryBookingCar["ErrorCode"] != '000000':
-			return "StationName:{0} ErrMsg:{1}".format(StationName[0:10],queryBookingCar["ErrMsg"])
+			return {"StationName":StationName[0:10] ,"ErrMsg":queryBookingCar["ErrMsg"]}
+		
+		
 		hasCar = queryBookingCar["data"]["hasCar"]
 
 		stationInfo = {}

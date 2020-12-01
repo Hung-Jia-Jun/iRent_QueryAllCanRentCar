@@ -1,9 +1,14 @@
 function queryCar()
 {
 	//關閉 Go按鈕，防止用戶多次按下
-	document.getElementById("queryCar").disabled = true
+	document.getElementById("queryCar").disabled = true;
 	//顯示"載入中..."的文字
 	document.getElementById("loading").style.display = 'block';
+	//顯示目前處理進度文字
+	document.getElementById("process").style.display = 'block';
+
+	//顯示目前處理進度文字
+	document.getElementById("process").innerText="";
 	$.get(
 		"getHasCarStation",
 		{ 
@@ -33,7 +38,12 @@ function setMarkers(stations) {
 		markers[i].setMap(null);
 	}
 	markers = [];
-	_stations = stations["hasCar"]
+	_stations = stations["hasCar"];
+	if (stations["hasCar"].length == 0)
+	{
+		alert("該時段沒有任何車輛可供租借，下次請早點預約");
+		return;
+	}
 	i=0;
 	try {
 		_stations.forEach(function (_station) {
@@ -525,9 +535,52 @@ function googleMapShow()
 	});
 
 }
+Date.prototype.yyyymmdd = function () {
+	var mm = this.getMonth() + 1; // getMonth() is zero-based
+	var dd = this.getDate();
+
+	return [this.getFullYear(),
+	(mm > 9 ? '' : '0') + mm,
+	(dd > 9 ? '' : '0') + dd
+	].join('-');
+};
+
+
 $(document).ready(function(){
+	
 	document.getElementById("loading").style.display = 'none';
+
+	//關閉目前處理進度文字
+	document.getElementById("process").style.display = 'none';
+
 	document.getElementById("queryCar").addEventListener("click", queryCar);
 	googleMapShow();
+	var today = new Date();
+	//預計取車時間必須大於現在的時間
+	today.setMinutes(today.getMinutes() + 5);
+	document.getElementById("startDate").value = today.yyyymmdd();
+	document.getElementById("startTime").value = (today.getHours() < 10 ? '0' : '') + today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+	document.getElementById("endDate").value = today.yyyymmdd();
+	//最少租賃時間30分
+	today.setMinutes(today.getMinutes() + 30);
+	
+	document.getElementById("endTime").value = (today.getHours() < 10 ? '0' : '') + today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
 
+	socket = io.connect();
+
+	var serverMsg = ""
+	//處理Server回傳的訊息
+	socket.on('server_response', function (msg) {
+		serverMsg = msg["msg"]
+		console.log(serverMsg);
+		if (serverMsg != undefined)
+		{
+			//顯示目前處理進度文字
+			document.getElementById("process").innerText = serverMsg;
+		}
+	});
+
+	//發送一個訊息給Server
+	socket.emit('Client_event', { data: 'connected!' });
+	
 });

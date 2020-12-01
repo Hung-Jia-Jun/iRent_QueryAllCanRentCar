@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 #------------------------------------------------------------------------------------------------------
 app = Flask(__name__)
 CORS(app)
-# socketio = SocketIO(app)
+socketio = SocketIO(app)
 queryStationList = queryStationList()
 startQuery = startQuery()
 @app.route("/")
@@ -41,37 +41,45 @@ def getHasCarStation():
 	endTime = endDate + endTime
 	carType = request.args.get('carType')
 	cityName = request.args.get('cityName')
-	# startTime = "20201028200000"
-	# endTime = "20201028220000"
-	#carType:
-	#002084:SIENTA5人
-	#002087:SIENTA7人
-	#002669:VIOS
-	#001601:YARIS
-	#yyyyyy:YARIS
-	#002659:PRIUSc
-	# carType = "001601"
+	
 	#取得我寫在code裡面的車輛ID等資料，並去做查詢
 	hasCarStation = queryStationList.start(
             startQuery, startTime, endTime, carType, cityName)
 	stationJson = {}
-	stationJson["hasCar"] = hasCarStation
+	
+	#使用yield模式一次取出一筆目前進度，實現進度條
+	stationLen , hascar  = next(hasCarStation)
+	for i in range(stationLen-1):
+		# 不要一次查太多
+		# 所有車站都爬完很耗時間
+		if len(hascar)>=10:
+			continue
+		stationLen , hascar = next(hasCarStation)
+		#發送訊息給前端r
+		socketio.emit('server_response', 
+						{ 'data': {"status":str(i)+"/"+str(stationLen)+"/"+str(len(hascar))},
+						'msg':"共"+str(stationLen)+"個站點，正在查詢第"+str(i)+"個站點，目前有車的站點數量："+str(len(hascar)) })
+	stationJson["hasCar"] = hascar
 	res_json = json.dumps(stationJson, ensure_ascii=False)
 	return Response(response=res_json,
 			status=200,
 			mimetype="application/json")
 
 
-# @socketio.on('event')
-# @cross_origin()
-# def event(msg):
-# 	if msg["data"] == "connected!":
-# 		socketio.emit('server_response', {'data': "Check"})
-	
+@socketio.on('Client_event')
+@cross_origin()
+#接收來自前端的訊息
+def Client_event(msg):
+	print(msg["data"])
+	# socketio.emit('server_response', { 'data': str("OK", encoding = "utf-8") })
+	#發送訊息給前端
+	socketio.emit('server_response', { 'data': "OK" })
+	return Response(status=200)
+
 if __name__ == "__main__":
 	#為何使用8000 port呢?
 	#因為小於1024的port需要sudo 才能運行
 	#heroku沒有sudo 的執行權限
 	#https://stackoverflow.com/questions/45385384/how-can-i-run-as-root-on-heroku
 	app.run(host='0.0.0.0',port=8000)
-	# socketio.run(app)
+	socketio.run(app)
