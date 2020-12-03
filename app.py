@@ -48,14 +48,26 @@ def getHasCarStation():
 	stationJson = {}
 	
 	#使用yield模式一次取出一筆目前進度，實現進度條
-	stationLen , hascar  = next(hasCarStation)
+	result = next(hasCarStation)
+	try:
+		stationLen , hascar = result
+	except:
+		#可能查車的時候發生什麼問題了
+		#例如 ： 
+		# 1. 起始時間在過去
+		# 2. 租用時間小於30分
+		stationJson["errorMsg"] = result
+		res_json = json.dumps(stationJson, ensure_ascii=False)
+		return Response(response=res_json,
+				status=200,
+				mimetype="application/json")
 	for i in range(stationLen-1):
 		# 不要一次查太多
 		# 所有車站都爬完很耗時間
 		if len(hascar)>=10:
 			continue
 		stationLen , hascar = next(hasCarStation)
-		#發送訊息給前端r
+		#發送訊息給前端
 		socketio.emit('server_response', 
 						{ 'data': {"status":str(i)+"/"+str(stationLen)+"/"+str(len(hascar))},
 						'msg':"共"+str(stationLen)+"個站點，正在查詢第"+str(i)+"個站點，目前有車的站點數量："+str(len(hascar)),

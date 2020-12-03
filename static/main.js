@@ -41,7 +41,14 @@ function setMarkers(stations) {
 	}
 	markers = [];
 	_stations = stations["hasCar"];
-	if (stations["hasCar"].length == 0)
+	if ("errorMsg" in stations)
+	{
+		alert(stations["errorMsg"]);
+	}
+	if (stations["hasCar"] == "請先登入。") {
+		alert("這個系統開發者目前提供的irent帳號被鎖了\n有問題的話可以聯絡：\nyf9000555@gmail.com");
+	}
+	else if (stations["hasCar"].length == 0)
 	{
 		alert("該時段沒有任何車輛可供租借，下次請早點預約");
 		return;
@@ -71,12 +78,6 @@ function setMarkers(stations) {
 			i += 1;
 		});
 	} catch{
-		if (stations["hasCar"] == "請先登入。"){
-			alert("這個系統開發者目前提供的irent帳號被鎖了\n有問題的話可以聯絡：\nyf9000555@gmail.com");
-		}
-		else{
-			alert(stations["hasCar"]);
-		}
 		return;
 	}
 	

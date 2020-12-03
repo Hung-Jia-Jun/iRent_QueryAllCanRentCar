@@ -101,7 +101,7 @@ class queryStationList:
 				Starttime, EndTime, CarType, StationName, StationID, stationGIS,Addr)
 			if result != None:
 				if "ErrMsg" in result:
-					return result["ErrMsg"]
+					yield result["ErrMsg"]
 				hasCarStation.append(result)
 			index += 1
 			yield len(stationNameLi),hasCarStation
