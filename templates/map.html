@@ -20,6 +20,26 @@
 				bottom: 0;
 				max-width: 320px;
 			}
+			.wrapper {
+				width: 500px;
+			}
+			
+			.progress-bar {
+				width: 100%;
+				background-color: #e0e0e0;
+				padding: 3px;
+				border-radius: 3px;
+				box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+			}
+			
+			.progress-bar-fill {
+				display: block;
+				height: 22px;
+				background-color: #659cef;
+				border-radius: 3px;
+				
+				transition: width 500ms ease-in-out;
+			}
 		</style>
 
 		<script>
@@ -103,6 +123,7 @@
 							<div class="col-sm-4">
 								<input type="date" id="startDate" name="startDate">
 							</div>
+							<div style="height: 50px;" class="row"></div>
 							<div class="col-sm-1">
 							</div>
 							<div class="col-sm-3">
@@ -117,6 +138,7 @@
 							<div class="col-sm-4">
 								<input type="date" id="endDate" name="endDate">
 							</div>
+							<div style="height: 50px;" class="row"></div>
 							<div class="col-sm-1">
 							</div>
 							<div class="col-sm-3">
@@ -130,12 +152,12 @@
 							</div>
 							<div class="col-sm-3">
 								<select id="carType" name="carType">
-								　	<option value="002084">SIENTA5人</option>
-								　	<option value="002087">SIENTA7人</option>
 									<option value="002669">VIOS</option>
 									<option value="001601">YARIS</option>
 									<option value="yyyyyy">YARIS(舊款)</option>
 									<option value="002659">PRIUSc</option>
+								　	<option value="002084">SIENTA5人</option>
+								　	<option value="002087">SIENTA7人</option>
 								</select>
 							</div>
 						</div>
@@ -177,13 +199,30 @@
 				<div class = "col-sm-5"></div>
 				<div class = "col-sm">
 					<button type="button" class="btn btn-primary"id="queryCar">Go</button>
-					<h5 id="loading">載入中...</h5>
 				</div>
 			</div>
-			<div class="row">
-				<div class = "col-sm-3"></div>
-				<div class = "col-sm">
-					<h8 id="process">123</h8>
+			<div style="height: 50px;" class="row"></div>
+			<div id="loading">
+				<div class="row">
+					<div class = "col-sm-5"></div>
+					<div class = "col-sm-3">
+						<h5>載入中...</h5>
+					</div>
+				</div>
+				<div style="height: 50px;" class="row"></div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class="wrapper col-12 col-sm-6">
+						<div class="progress-bar">
+							<span id="processStatus" class="progress-bar-fill" style="width: 0%;"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-3"></div>
+					<div class = "col-sm-5 align-self-center">
+						<h8 id="process">共26個站點，正在查詢第6個站點，目前有車的站點數量：4</h8>
+					</div>
 				</div>
 			</div>
 		</div>

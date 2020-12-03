@@ -7,6 +7,8 @@ function queryCar()
 	//顯示目前處理進度文字
 	document.getElementById("process").style.display = 'block';
 
+	//復歸進度條寬度
+	document.getElementById("processStatus").style.width = "0%"
 	//顯示目前處理進度文字
 	document.getElementById("process").innerText="";
 	$.get(
@@ -572,11 +574,13 @@ $(document).ready(function(){
 	//處理Server回傳的訊息
 	socket.on('server_response', function (msg) {
 		serverMsg = msg["msg"]
+		process = msg["process"]
 		console.log(serverMsg);
 		if (serverMsg != undefined)
 		{
 			//顯示目前處理進度文字
 			document.getElementById("process").innerText = serverMsg;
+			document.getElementById("processStatus").style.width = process + "%";
 		}
 	});
 

@@ -58,7 +58,8 @@ def getHasCarStation():
 		#發送訊息給前端r
 		socketio.emit('server_response', 
 						{ 'data': {"status":str(i)+"/"+str(stationLen)+"/"+str(len(hascar))},
-						'msg':"共"+str(stationLen)+"個站點，正在查詢第"+str(i)+"個站點，目前有車的站點數量："+str(len(hascar)) })
+						'msg':"共"+str(stationLen)+"個站點，正在查詢第"+str(i)+"個站點，目前有車的站點數量："+str(len(hascar)),
+						'process':str(len(hascar)*10 )})
 	stationJson["hasCar"] = hascar
 	res_json = json.dumps(stationJson, ensure_ascii=False)
 	return Response(response=res_json,
@@ -77,10 +78,13 @@ def Client_event(msg):
 	return Response(status=200)
 
 if __name__ == "__main__":
+	if "isHeroku" in os.environ:
+		port=int(os.environ["PORT"]) 
+	else:
+		port=8000
 	#為何使用8000 port呢?
 	#因為小於1024的port需要sudo 才能運行
 	#heroku沒有sudo 的執行權限
-	port=int(os.environ["PORT"]) 
 	#https://stackoverflow.com/questions/45385384/how-can-i-run-as-root-on-heroku
 	socketio.run(app, host="0.0.0.0", port=port, use_reloader=False)
-	app.run(host='0.0.0.0',port=8000)
+	# app.run(host='0.0.0.0',port=8000)
