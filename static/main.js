@@ -550,7 +550,7 @@ Date.prototype.yyyymmdd = function () {
 
 
 $(document).ready(function(){
-	
+	alert("感謝大家使用，此網站功能已在新版本的irent APP出現了，請移至APP內使用謝謝");
 	document.getElementById("loading").style.display = 'none';
 
 	//關閉目前處理進度文字
